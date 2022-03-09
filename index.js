@@ -19,7 +19,11 @@ app.use('/v1/products', productRouter);
 app.use('/v1/orders', orderRouter);
 app.use('/v1/reviews/', reviewRouter);
 
-mongoose.connect(`${config.MONGODB_URL}`, (err, res) => {
+app.get('/healthcheck', (req, res) => {
+    res.send({status: 'ec-services is up on running'});
+});
+
+mongoose.connect(`${config.MONGODB_URL}`, {useNewUrlParser: true, useUnifiedTopology: true}, (err, res) => {
     if (err) {
         console.log(err);
     } else {
